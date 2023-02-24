@@ -1,23 +1,32 @@
-const Employee=require('./employee.js');
-class Manager extends Employee{
-    constructor(name,salary,title,manager){
-        super(name,salary,title,manager);
-        this.employees=[];
+const Employee = require('./employee.js');
+class Manager extends Employee {
+    constructor(name, salary, title, manager) {
+        super(name, salary, title, manager);
+        this.employees = [];
 
     }
-    addEmployee(employee){
+    addEmployee(employee) {
         this.employees.push(employee);
     }
+
+    calculateBonus(multiplier) {
+
+        let bonus = (this.salary + this._totalSubSalary()) * multiplier;
+        return bonus;
+    }
+    _totalSubSalary() {
+        let sum = 0;
+        for (let item of this.employees) {
+
+            if (item instanceof Manager) {
+                sum += item.salary + item._totalSubSalary();
+
+            } else if (item instanceof Employee) {
+                sum += item.salary;
+            }
+
+        }
+        return sum;
+    }
 }
-
-const splinter = new Manager('Splinter', 100000, 'Sensei');
-console.log('Before: ', splinter);
-
-const leo = new Employee('Leonardo', 90000, 'Ninja', splinter);
-const mikey = new Employee('Michelangelo', 90000, 'Ninja', splinter);
-const donnie = new Employee('Donatello', 90000, 'Ninja', splinter);
-const raph = new Employee('Raphael', 90000, 'Ninja', splinter);
-
-console.log('After: ', splinter);
-
-module.exports=Manager;
+module.exports = Manager;
