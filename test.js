@@ -1,10 +1,10 @@
 const Employee=require('./employee.js');
 const Manager=require('./manager.js');
 const Hobbes = new Manager('Hobbes',1000000,'founder');
-const Calvin = new Manager('Calvin',130000,'Director','Hobbes');
-const Susie = new Manager('Susie',100000,'TA Manager','Calvin');
-const Lily = new Employee('Lily',90000,'TA','Susie');
-const Clifford = new Employee('Clifford',90000,'TA','Susie');
+const Calvin = new Manager('Calvin',130000,'Director',Hobbes);
+const Susie = new Manager('Susie',100000,'TA Manager',Calvin);
+const Lily = new Employee('Lily',90000,'TA',Susie);
+const Clifford = new Employee('Clifford',90000,'TA',Susie);
 
 console.log(Hobbes.calculateBonus(0.05)); 
 console.log(Calvin.calculateBonus(0.05)); 
